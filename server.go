@@ -29,6 +29,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
       } else {
         io.WriteString(w, "error")
       }
+    } else {
+      io.WriteString(w, "error")
     }
   }/* else {
     t, _ := template.ParseFiles("login.html")
