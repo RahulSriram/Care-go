@@ -1,44 +1,112 @@
 package main
 
 import (
+	"database/sql"
+	"html/template"
 	"io"
 	"net/http"
-  "database/sql"
-  _ "github.com/go-sql-driver/mysql"
-  //"html/template"
+	"strconv"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
-var arduinoData string
+var user string = "test"
+var password string = "test"
+var database string = "Care"
+var db *sql.DB
+var err error
+var authFailMsg string = "auth_fail"
+var errorMsg string = "error"
+var approvalMsg string = "ok"
+
+func displayPage(w http.ResponseWriter, file string) {
+	t, _ := template.ParseFiles(file)
+	t.Execute(w, nil)
+}
+
+/*func createCode() int64 {
+	//magical code from 'crypt.go'
+}*/
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-  if r.Method == "POST" {
-    number := r.FormValue("number")
-    id := r.FormValue("id")
+	if r.Method == "POST" {
+		number := r.FormValue("number")
+		id := r.FormValue("id")
 
-    if len(number) != 0 && len(id) != 0 {
-      database := "Care"
-      user := "test"
-      password := "test"
-      conn, err := sql.Open("mysql", user + ":" + password + "@/" + database)
-      defer conn.Close()
-      row := conn.QueryRow("SELECT id,number from Users where id=? AND number=?", id, number)
-      err = row.Scan(&id, &number)
+		if len(number) != 0 && len(id) != 0 {
+			row := db.QueryRow("SELECT id,number from Users where id=? AND number=?", id, number)
+			err = row.Scan(&id, &number)
 
-      if len(id) != 0 && len(number) != 0 && err == nil {
-        io.WriteString(w, "ok")
-      } else {
-        io.WriteString(w, "error")
-      }
-    } else {
-      io.WriteString(w, "error")
-    }
-  }/* else {
-    t, _ := template.ParseFiles("login.html")
-    t.Execute(w, nil)
-  }*/
+			if len(id) != 0 && len(number) != 0 && err == nil {
+				io.WriteString(w, approvalMsg)
+			} else {
+				io.WriteString(w, authFailMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayPage(w, "login.html")
+	}
+}
+
+func registerHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		number := r.FormValue("number")
+		name := r.FormValue("name")
+		code := r.FormValue("code")
+
+		if len(number) != 0 && len(id) != 0 {
+			if len(name) != 0 && len(code) != 0 {
+				//TODO: Add register handling function
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayPage(w, "register.html")
+	}
+}
+
+func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		numberString := r.FormValue("number")
+
+		if len(numberString) != 0 {
+			number, _ := strconv.Atoi(numberString)
+			var isRequestPresent string
+
+			row := db.QueryRow("SELECT number FROM SmsPending WHERE number=?", number)
+			err = row.Scan(&isRequestPresent)
+
+			if len(isRequestPresent) == 0 {
+				code := createCode()
+				_, err = db.Exec("INSERT INTO SmsPending(number, code) VALUES(?, ?)", number, code)
+
+				if err != nil {
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, errorMsg)
+		}
+	} else {
+		displayPage(w, "request_sms.html")
+	}
 }
 
 func main() {
+	db, err = sql.Open("mysql", user+":"+password+"@/"+database)
+	defer db.Close()
 	http.HandleFunc("/login", loginHandler)
+	http.HandleFunc("/register", registerHandler)
+	http.HandleFunc("/request_sms", requestSmsHandler)
 	http.ListenAndServe(":8000", nil)
 }
