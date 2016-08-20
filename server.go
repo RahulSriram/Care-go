@@ -10,21 +10,23 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var user string = "test"
-var password string = "test"
-var database string = "Care"
-var db *sql.DB
-var err error
-var authFailMsg string = "auth_fail"
-var errorMsg string = "error"
-var approvalMsg string = "ok"
+var (
+	user string = "test"
+	password string = "test"
+	database string = "Care"
+	db *sql.DB
+	err error
+	authFailMsg string = "auth_fail"
+	errorMsg string = "error"
+	approvalMsg string = "ok"
+)
 
 func displayPage(w http.ResponseWriter, file string) {
 	t, _ := template.ParseFiles(file)
 	t.Execute(w, nil)
 }
 
-/*func createCode() int64 {
+/*func createCode() string {
 	//magical code from 'crypt.go'
 }*/
 
@@ -60,6 +62,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		if len(number) != 0 && len(id) != 0 {
 			if len(name) != 0 && len(code) != 0 {
 				//TODO: Add register handling function
+				db.QueryRow("SELECT ")
 			} else {
 				io.WriteString(w, errorMsg)
 			}
@@ -76,18 +79,23 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 		numberString := r.FormValue("number")
 
 		if len(numberString) != 0 {
-			number, _ := strconv.Atoi(numberString)
-			var isRequestPresent string
+			number, err := strconv.Atoi(numberString)
 
-			row := db.QueryRow("SELECT number FROM SmsPending WHERE number=?", number)
-			err = row.Scan(&isRequestPresent)
+			if err != nil {
+				var isRequestPresent string
 
-			if len(isRequestPresent) == 0 {
-				code := createCode()
-				_, err = db.Exec("INSERT INTO SmsPending(number, code) VALUES(?, ?)", number, code)
+				row := db.QueryRow("SELECT number FROM SmsPending WHERE number=?", number)
+				err = row.Scan(&isRequestPresent)
 
-				if err != nil {
-					io.WriteString(w, approvalMsg)
+				if len(isRequestPresent) == 0 {
+					code := createCode()
+					_, err = db.Exec("INSERT INTO SmsPending(number, code) VALUES(?, ?)", number, code)
+
+					if err != nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
 				} else {
 					io.WriteString(w, errorMsg)
 				}
