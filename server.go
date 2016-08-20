@@ -30,20 +30,27 @@ func displayPage(w http.ResponseWriter, file string) {
 	//magical code from 'crypt.go'
 }*/
 
+func isAuthenticated(id string, number string) bool {
+	if len(number) != 0 && len(id) != 0 {
+		row := db.QueryRow("SELECT id, number from Users where id=? AND number=?", id, number)
+		err = row.Scan(&id, &number)
+
+		if len(id) != 0 && len(number) != 0 && err == nil {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
+}
+
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		number := r.FormValue("number")
 		id := r.FormValue("id")
-
-		if len(number) != 0 && len(id) != 0 {
-			row := db.QueryRow("SELECT id,number from Users where id=? AND number=?", id, number)
-			err = row.Scan(&id, &number)
-
-			if len(id) != 0 && len(number) != 0 && err == nil {
-				io.WriteString(w, approvalMsg)
-			} else {
-				io.WriteString(w, authFailMsg)
-			}
+		if isAuthenticated(id, number) {
+			io.WriteString(w, approvalMsg)
 		} else {
 			io.WriteString(w, authFailMsg)
 		}
@@ -56,13 +63,24 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		id := r.FormValue("id")
 		number := r.FormValue("number")
-		name := r.FormValue("name")
-		code := r.FormValue("code")
+		userCode := r.FormValue("code")
 
-		if len(number) != 0 && len(id) != 0 {
-			if len(name) != 0 && len(code) != 0 {
+		if len(id) != 0 && len(number) != 0 {
+			if len(userCode) != 0 {
 				//TODO: Add register handling function
-				db.QueryRow("SELECT ")
+				_, errNum := strconv.Atoi(number)
+				_, errCode := strconv.Atoi(userCode)
+				row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y'", number)
+				var dbCode string
+				err = row.Scan(&dbCode)
+
+				if dbCode == userCode && err != nil && errNum != nil && errCode != nil {
+					db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
+					db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
 			} else {
 				io.WriteString(w, errorMsg)
 			}
@@ -84,12 +102,12 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				var isRequestPresent string
 
-				row := db.QueryRow("SELECT number FROM SmsPending WHERE number=?", number)
+				row := db.QueryRow("SELECT number FROM SmsRequest WHERE number=?", number)
 				err = row.Scan(&isRequestPresent)
 
 				if len(isRequestPresent) == 0 {
 					code := createCode()
-					_, err = db.Exec("INSERT INTO SmsPending(number, code) VALUES(?, ?)", number, code)
+					_, err = db.Exec("INSERT INTO SmsRequest(number, code) VALUES(?, ?)", number, code)
 
 					if err != nil {
 						io.WriteString(w, approvalMsg)
