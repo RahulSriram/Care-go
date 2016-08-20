@@ -67,14 +67,13 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 
 		if len(id) != 0 && len(number) != 0 {
 			if len(userCode) != 0 {
-				//TODO: Add register handling function
-				_, errNum := strconv.Atoi(number)
-				_, errCode := strconv.Atoi(userCode)
+				_, numErr := strconv.Atoi(number)
+				_, codeErr := strconv.Atoi(userCode)
 				row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y'", number)
 				var dbCode string
 				err = row.Scan(&dbCode)
 
-				if dbCode == userCode && err != nil && errNum != nil && errCode != nil {
+				if dbCode == userCode && err == nil && numErr == nil && codeErr == nil {
 					db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
 					db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
 					io.WriteString(w, approvalMsg)
@@ -99,7 +98,7 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 		if len(numberString) != 0 {
 			number, err := strconv.Atoi(numberString)
 
-			if err != nil {
+			if err == nil {
 				var isRequestPresent string
 
 				row := db.QueryRow("SELECT number FROM SmsRequest WHERE number=?", number)
@@ -109,7 +108,7 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 					code := createCode()
 					_, err = db.Exec("INSERT INTO SmsRequest(number, code) VALUES(?, ?)", number, code)
 
-					if err != nil {
+					if err == nil {
 						io.WriteString(w, approvalMsg)
 					} else {
 						io.WriteString(w, errorMsg)
