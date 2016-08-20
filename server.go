@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
+	"strings"
 )
 
 var (
@@ -26,13 +27,13 @@ func displayPage(w http.ResponseWriter, file string) {
 	t.Execute(w, nil)
 }
 
-/*func createCode() string {
+/*func createSmsCode() string {
 	//magical code from 'crypt.go'
 }*/
 
 func isAuthenticated(id string, number string) bool {
 	if len(number) != 0 && len(id) != 0 {
-		row := db.QueryRow("SELECT id, number from Users where id='?' AND number=?", id, number)
+		row := db.QueryRow("SELECT id, number from Users where id=? AND number=?", id, number)
 		err = row.Scan(&id, &number)
 
 		if len(id) != 0 && len(number) != 0 && err == nil {
@@ -110,7 +111,7 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 				err = row.Scan(&isRequestPresent)
 
 				if len(isRequestPresent) == 0 {
-					code := createCode()
+					code := createSmsCode()
 					_, err = db.Exec("INSERT INTO SmsRequest(number, code) VALUES(?, ?)", number, code)
 
 					if err == nil {
@@ -140,7 +141,7 @@ func setNameHandler(w http.ResponseWriter, r *http.Request)  {
 
 		if isAuthenticated(id, number) {
 			if len(name) != 0 {
-				_, err = db.Exec("UPDATE Users SET name='?' WHERE id='?' AND number=?", name, id, number)
+				_, err = db.Exec("UPDATE Users SET name=? WHERE id=? AND number=?", name, id, number)
 
 				if err == nil {
 					io.WriteString(w, approvalMsg)
@@ -158,6 +159,34 @@ func setNameHandler(w http.ResponseWriter, r *http.Request)  {
 	}
 }
 
+func donateHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		number := r.FormValue("number")
+		location := r.FormValue("location")
+		items := r.FormValue("items")
+
+		if isAuthenticated(id, number) {
+			if len(location) != 0 && strings.Contains(location, ",") && len(items) != 0 {
+				_, err1 := db.Exec("INSERT INTO Transactions VALUES(?, ?)", number, items)
+				_, err2 := db.Exec("UPDATE Users SET location=? WHERE id=? AND number=?", location, id, number)
+
+				if err1 == nil && err2 == nil {
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayPage(w, "donate.html")
+	}
+}
+
 func main() {
 	db, err = sql.Open("mysql", user+":"+password+"@/"+database)
 	defer db.Close()
@@ -165,5 +194,6 @@ func main() {
 	http.HandleFunc("/register", registerHandler)
 	http.HandleFunc("/request_sms", requestSmsHandler)
 	http.HandleFunc("/set_name", setNameHandler)
+	http.HandleFunc("/donate", donateHandler)
 	http.ListenAndServe(":8000", nil)
 }
