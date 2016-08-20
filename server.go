@@ -32,7 +32,7 @@ func displayPage(w http.ResponseWriter, file string) {
 
 func isAuthenticated(id string, number string) bool {
 	if len(number) != 0 && len(id) != 0 {
-		row := db.QueryRow("SELECT id, number from Users where id=? AND number=?", id, number)
+		row := db.QueryRow("SELECT id, number from Users where id='?' AND number=?", id, number)
 		err = row.Scan(&id, &number)
 
 		if len(id) != 0 && len(number) != 0 && err == nil {
@@ -74,9 +74,14 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 				err = row.Scan(&dbCode)
 
 				if dbCode == userCode && err == nil && numErr == nil && codeErr == nil {
-					db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
-					db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
-					io.WriteString(w, approvalMsg)
+					_, delErr := db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
+					_, insErr := db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
+
+					if delErr == nil && insErr == nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
 				} else {
 					io.WriteString(w, errorMsg)
 				}
@@ -127,11 +132,38 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func setNameHandler(w http.ResponseWriter, r *http.Request)  {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		number := r.FormValue("number")
+		name := r.FormValue("name")
+
+		if isAuthenticated(id, number) {
+			if len(name) != 0 {
+				_, err = db.Exec("UPDATE Users SET name='?' WHERE id='?' AND number=?", name, id, number)
+
+				if err == nil {
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayPage(w, "set_name.html")
+	}
+}
+
 func main() {
 	db, err = sql.Open("mysql", user+":"+password+"@/"+database)
 	defer db.Close()
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/register", registerHandler)
 	http.HandleFunc("/request_sms", requestSmsHandler)
+	http.HandleFunc("/set_name", setNameHandler)
 	http.ListenAndServe(":8000", nil)
 }
