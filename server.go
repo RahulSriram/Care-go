@@ -2,13 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"html/template"
-	"io"
-	"net/http"
-	"strconv"
-
 	_ "github.com/go-sql-driver/mysql"
+	"net/http"
+	"io"
+	"strconv"
 	"strings"
+	"html/template"
 )
 
 var (
@@ -98,10 +97,10 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 
 func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		numberString := r.FormValue("number")
+		number := r.FormValue("number")
 
-		if len(numberString) != 0 {
-			number, err := strconv.Atoi(numberString)
+		if len(number) != 0 && strings.HasPrefix(number, "+") {
+			_, err := strconv.Atoi(number)
 
 			if err == nil {
 				var isRequestPresent string
