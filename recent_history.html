@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Recent History</title>
+</head>
+<body>
+<!-- id := r.FormValue("id")
+number := r.FormValue("number")
+userLocation := r.FormValue("location")
+radius := r.FormValue("radius")
+status := r.FormValue("status") -->
+<form action="/recent_history" method="post">
+	id <input type="text" name="id">
+	<br/>
+	number <input type="text" name="number">
+	<br/>
+	location <input type="text" name="location">
+	<br/>
+	radius <input type="text" name="radius">
+	<br/>
+	status <input type="text" name="status">
+	<input type="submit" value="Recent History">
+</form>
+</body>
+</html>
