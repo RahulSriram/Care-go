@@ -5,9 +5,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"net/http"
 	"io"
+	"html/template"
 	"strconv"
 	"strings"
-	"html/template"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 	approvalMsg string = "ok"
 )
 
-func displayPage(w http.ResponseWriter, file string) {
+func displayWebPage(w http.ResponseWriter, file string) {
 	t, _ := template.ParseFiles(file)
 	t.Execute(w, nil)
 }
@@ -54,7 +54,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 			io.WriteString(w, authFailMsg)
 		}
 	} else {
-		displayPage(w, "login.html")
+		displayWebPage(w, "login.html")
 	}
 }
 
@@ -91,7 +91,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			io.WriteString(w, authFailMsg)
 		}
 	} else {
-		displayPage(w, "register.html")
+		displayWebPage(w, "register.html")
 	}
 }
 
@@ -118,7 +118,13 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 						io.WriteString(w, errorMsg)
 					}
 				} else {
-					io.WriteString(w, errorMsg)
+					_, err = db.Exec("UPDATE SmsRequest SET isCodeSent='n' WHERE number=?", number)
+
+					if err == nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
 				}
 			} else {
 				io.WriteString(w, errorMsg)
@@ -127,7 +133,7 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 			io.WriteString(w, errorMsg)
 		}
 	} else {
-		displayPage(w, "request_sms.html")
+		displayWebPage(w, "request_sms.html")
 	}
 }
 
@@ -153,7 +159,7 @@ func setNameHandler(w http.ResponseWriter, r *http.Request)  {
 			io.WriteString(w, authFailMsg)
 		}
 	} else {
-		displayPage(w, "set_name.html")
+		displayWebPage(w, "set_name.html")
 	}
 }
 
@@ -191,7 +197,7 @@ func donateHandler(w http.ResponseWriter, r *http.Request) {
 			io.WriteString(w, authFailMsg)
 		}
 	} else {
-		displayPage(w, "donate.html")
+		displayWebPage(w, "donate.html")
 	}
 }
 
@@ -218,7 +224,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 						for rows.Next() {
 							var data [6]string
 							rows.Scan(&data[0], &data[1], &data[2], &data[3], &data[4], &data[5])
-							io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + ";\n")
+							io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + "\n")
 						}
 
 						io.WriteString(w, approvalMsg)
@@ -229,7 +235,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 						for rows.Next() {
 							var data [2]string
 							rows.Scan(&data[0], &data[1])
-							io.WriteString(w, data[0] + "," + data[1] + ";\n")
+							io.WriteString(w, data[0] + "," + data[1] + "\n")
 						}
 
 						io.WriteString(w, approvalMsg)
@@ -246,7 +252,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 			io.WriteString(w, authFailMsg)
 		}
 	} else {
-		displayPage(w, "recent_history.html")
+		displayWebPage(w, "recent_history.html")
 	}
 }
 
