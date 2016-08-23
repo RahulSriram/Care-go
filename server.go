@@ -78,10 +78,11 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 				scanErr := row.Scan(&dbCode)
 
 				if dbCode == userCode && scanErr == nil && numErr == nil && codeErr == nil {
-					_, delErr := db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
+					_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
+					_, delUserErr := db.Exec("DELETE FROM Users WHERE number=?", number)
 					_, insErr := db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
 
-					if delErr == nil && insErr == nil {
+					if delSmsErr == nil && delUserErr == nil && insErr == nil {
 						io.WriteString(w, approvalMsg)
 					} else {
 						io.WriteString(w, errorMsg)
