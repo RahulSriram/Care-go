@@ -8,6 +8,8 @@ import (
 	"html/template"
 	"strconv"
 	"strings"
+    "fmt"
+	"math"
 )
 
 var (
@@ -48,6 +50,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		number := r.FormValue("number")
 		id := r.FormValue("id")
+        fmt.Println("\nloginHandler=>\nid:" + id + "\nnumber:" + number)
+
 		if isAuthenticated(id, number) {
 			io.WriteString(w, approvalMsg)
 		} else {
@@ -63,6 +67,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		id := r.FormValue("id")
 		number := r.FormValue("number")
 		userCode := r.FormValue("code")
+        fmt.Println("\nregisterHandler=>\nid:" + id + "\nnumber:" + number + "\ncode:" + userCode)
 
 		if len(id) != 0 && len(number) != 0 {
 			if len(userCode) != 0 {
@@ -98,6 +103,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		number := r.FormValue("number")
+        fmt.Println("\nrequestSmsHandler=>\nnumber:" + number)
 
 		if len(number) != 0 && strings.HasPrefix(number, "+") {
 			_, err := strconv.Atoi(number)
@@ -142,6 +148,7 @@ func setNameHandler(w http.ResponseWriter, r *http.Request)  {
 		id := r.FormValue("id")
 		number := r.FormValue("number")
 		name := r.FormValue("name")
+        fmt.Println("\nsetNameHandler=>\nid:" + id + "\nnumber:" + number + "\nname:" + name)
 
 		if isAuthenticated(id, number) {
 			if len(name) != 0 {
@@ -170,6 +177,7 @@ func donateHandler(w http.ResponseWriter, r *http.Request) {
 		location := r.FormValue("location")
 		items := r.FormValue("items")
 		description := r.FormValue("description")
+        fmt.Println("\ndonateHandler=>\nid:" + id + "\nnumber:" + number + "\nlocation:" + location + "\nitems:" + items + "\ndescription:" + description)
 
 		if isAuthenticated(id, number) {
 			if len(location) != 0 && strings.Contains(location, ",") && len(items) != 0 && len(description) != 0 && len(description) <= 140 {
@@ -208,6 +216,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 		userLocation := r.FormValue("location")
 		radius := r.FormValue("radius")
 		status := r.FormValue("status")
+        fmt.Println("\nrecentHistoryHandler=>\nid:" + id + "\nnumber:" + number + "\nlocation:" + userLocation + "\nradius:" + radius + "\nstatus:" + status)
 
 		if isAuthenticated(id, number) {
 			if len(userLocation) != 0 && strings.Contains(userLocation, ",") && len(radius) != 0 && len(status) != 0 {
@@ -217,8 +226,13 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 				radius, radErr := strconv.ParseFloat(radius, 64)
 
 				if radErr == nil && latErr == nil && lngErr == nil {
+					minLat := lat - ((1 / 110.6) * radius)
+					maxLat := lat + ((1 / 110.6) * radius)
+					minLng := lng - ((1 / (111.3 * math.Cos(minLat))) * radius)
+					maxLng := lng + ((1 / (111.3 * math.Cos(maxLat))) * radius)
+
 					if strings.Compare(status, "open") == 0 {
-						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", lat - radius, lat + radius, lng - radius, lng + radius)
+						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
 						defer rows.Close()
 
 						for rows.Next() {
