@@ -229,8 +229,8 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 				if radErr == nil && latErr == nil && lngErr == nil {
 					minLat := lat - ((1 / 110.6) * radius)
 					maxLat := lat + ((1 / 110.6) * radius)
-					minLng := lng - ((1 / (111.3 * math.Cos(minLat))) * radius)
-					maxLng := lng + ((1 / (111.3 * math.Cos(maxLat))) * radius)
+					minLng := lng - ((1 / (111.3 * math.Cos(lat))) * radius)
+					maxLng := lng + ((1 / (111.3 * math.Cos(lat))) * radius)
 
 					if strings.Compare(status, "open") == 0 {
 						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
