@@ -15,8 +15,9 @@ Golang server implementation for https://github.com/RahulSriram/Care
 
 | Field         | Type        | Null | Key | Default | Extra |
 |:-------------:|:-----------:|:----:|:---:|:-------:|:-----:|
-| timestamp     | varchar(19) | NO   | PRI |         |       |
-| number        | varchar(14) | NO   | PRI |         |       |
+| donationId    | varchar(40) | NO   | PRI | NULL    |       |
+| timestamp     | varchar(19) | NO   |     | NULL    |       |
+| number        | varchar(14) | NO   |     | NULL    |       |
 | items         | text        | NO   |     | NULL    |       |
 | status        | text        | NO   |     | NULL    |       |
 | description   | text        | NO   |     | NULL    |       |
@@ -28,6 +29,7 @@ Golang server implementation for https://github.com/RahulSriram/Care
 |:----------:|:-----------:|:----:|:---:|:-------:|:-----:|
 | number     | varchar(14) | NO   |     | NULL    |       |
 | code       | varchar(6)  | NO   |     | NULL    |       |
+| type       | varchar(3)  | NO   |     | NULL    |       |
 | isCodeSent | varchar(1)  | NO   |     | n       |       |
 
 ###Users

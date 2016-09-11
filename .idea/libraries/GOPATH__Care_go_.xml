@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;Care-go&gt;">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file://$PROJECT_DIR$/../../../golang.org" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../gopkg.in" />
       <root url="file://$PROJECT_DIR$/../../../golang.org" />
     </SOURCES>
     <excluded>

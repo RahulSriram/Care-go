@@ -27,7 +27,11 @@ func displayWebPage(w http.ResponseWriter, file string) {
 	t.Execute(w, nil)
 }
 
-/*func createSmsCode() string {
+/*func createSmsCode(msgType string) string {
+	//magical code from 'crypt.go'
+}*/
+
+/*func createDonationCode(input string) string {
 	//magical code from 'crypt.go'
 }*/
 
@@ -73,12 +77,12 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			if len(userCode) != 0 {
 				_, numErr := strconv.Atoi(number)
 				_, codeErr := strconv.Atoi(userCode)
-				row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y'", number)
+				row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='otp'", number)
 				var dbCode string
 				scanErr := row.Scan(&dbCode)
 
 				if dbCode == userCode && scanErr == nil && numErr == nil && codeErr == nil {
-					_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=?", number)
+					_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=? AND type='otp'", number)
 					_, delUserErr := db.Exec("DELETE FROM Users WHERE number=?", number)
 					_, insErr := db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
 
@@ -112,12 +116,12 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 			if err == nil {
 				var isRequestPresent string
 
-				row := db.QueryRow("SELECT number FROM SmsRequest WHERE number=?", number)
+				row := db.QueryRow("SELECT number FROM SmsRequest WHERE number=? AND type='otp'", number)
 				_ = row.Scan(&isRequestPresent)
 
 				if len(isRequestPresent) == 0 {
-					code := createSmsCode()
-					_, err = db.Exec("INSERT INTO SmsRequest(number, code) VALUES(?, ?)", number, code)
+					code := createSmsCode("otp")
+					_, err = db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'otp')", number, code)
 
 					if err == nil {
 						io.WriteString(w, approvalMsg)
@@ -125,7 +129,7 @@ func requestSmsHandler(w http.ResponseWriter, r *http.Request) {
 						io.WriteString(w, errorMsg)
 					}
 				} else {
-					_, err = db.Exec("UPDATE SmsRequest SET isCodeSent='n' WHERE number=?", number)
+					_, err = db.Exec("UPDATE SmsRequest SET isCodeSent='n' WHERE number=? AND type='otp'", number)
 
 					if err == nil {
 						io.WriteString(w, approvalMsg)
@@ -188,11 +192,19 @@ func donateHandler(w http.ResponseWriter, r *http.Request) {
 				lng, lngErr := strconv.ParseFloat(latLng[1], 64)
 
 				if itemErr == nil && latErr == nil && lngErr == nil {
-					_, err1 := db.Exec("INSERT INTO Transactions VALUES(NOW(), ?, ?, 'open', ?)", number, items, description)
-					_, err2 := db.Exec("UPDATE Users SET latitude=?, longitude=? WHERE id=? AND number=?", lat, lng, id, number)
+					var timestamp string
+					row := db.QueryRow("SELECT NOW()")
+					err := row.Scan(&timestamp)
 
-					if err1 == nil && err2 == nil {
-						io.WriteString(w, approvalMsg)
+					if err == nil {
+						_, err1 := db.Exec("INSERT INTO Transactions VALUES(" + createDonationCode(timestamp + number) + ", " + timestamp + ", ?, ?, 'open', ?)", number, items, description)
+						_, err2 := db.Exec("UPDATE Users SET latitude=?, longitude=? WHERE id=? AND number=?", lat, lng, id, number)
+
+						if err1 == nil && err2 == nil {
+							io.WriteString(w, approvalMsg)
+						} else {
+							io.WriteString(w, errorMsg)
+						}
 					} else {
 						io.WriteString(w, errorMsg)
 					}
@@ -233,13 +245,13 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 					maxLng := lng + ((1 / (111.3 * math.Cos(lat))) * radius)
 
 					if strings.Compare(status, "open") == 0 {
-						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
+						rows, _ := db.Query("SELECT donationId, Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
 						defer rows.Close()
 
 						for rows.Next() {
-							var data [6]string
-							rows.Scan(&data[0], &data[1], &data[2], &data[3], &data[4], &data[5])
-							io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + "\n")
+							var data [7]string
+							rows.Scan(&data[0], &data[1], &data[2], &data[3], &data[4], &data[5], &data[6])
+							io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + "," + data[6] + "\n")
 						}
 
 						io.WriteString(w, approvalMsg)
@@ -271,6 +283,39 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func acceptDonationHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		volunteerNumber := r.FormValue("number")
+		id := r.FormValue("id")
+		donationId := r.FormValue("donationId")
+
+		if isAuthenticated(id, volunteerNumber) {
+			var donorNumber string
+			row := db.QueryRow("SELECT number FROM Transactions WHERE donationId=?", donationId)
+			err := row.Scan(&donorNumber)
+
+			if err == nil {
+				code := createSmsCode("sms")
+				_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'sms')", volunteerNumber, code)
+				_, err2 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'sms')", donorNumber, code)
+				_, err3 := db.Exec("UPDATE Transactions SET status='closed' WHERE donationId=?", donationId)
+
+				if err1 == nil && err2 == nil && err3 == nil {
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "accept_donation.html")
+	}
+}
+
 func main() {
 	var dbErr error
 	db, dbErr = sql.Open("mysql", user + ":" + password + "@/" + database)
@@ -283,6 +328,7 @@ func main() {
 		http.HandleFunc("/set_name", setNameHandler)
 		http.HandleFunc("/donate", donateHandler)
 		http.HandleFunc("/recent_history", recentHistoryHandler)
+		http.HandleFunc("/accept_donation", acceptDonationHandler)
 		http.ListenAndServe(":8000", nil)
 	} else {
 		panic(dbErr)
