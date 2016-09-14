@@ -197,7 +197,7 @@ func donateHandler(w http.ResponseWriter, r *http.Request) {
 					err := row.Scan(&timestamp)
 
 					if err == nil {
-						_, err1 := db.Exec("INSERT INTO Transactions VALUES(" + createDonationCode(timestamp + number) + ", " + timestamp + ", ?, ?, 'open', ?)", number, items, description)
+						_, err1 := db.Exec("INSERT INTO Transactions(donationId, timestamp, fromNumber, items, status, description) VALUES(" + createDonationCode(timestamp + number) + ", " + timestamp + ", ?, ?, 'open', ?)", number, items, description)
 						_, err2 := db.Exec("UPDATE Users SET latitude=?, longitude=? WHERE id=? AND number=?", lat, lng, id, number)
 
 						if err1 == nil && err2 == nil {
@@ -245,7 +245,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 					maxLng := lng + ((1 / (111.3 * math.Cos(lat))) * radius)
 
 					if strings.Compare(status, "open") == 0 {
-						rows, _ := db.Query("SELECT donationId, Users.number, name, latitude, longitude, items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
+						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
 						defer rows.Close()
 
 						for rows.Next() {
@@ -256,7 +256,7 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 
 						io.WriteString(w, approvalMsg)
 					} else if strings.Compare(status, "closed") == 0 {
-						rows, _ := db.Query("SELECT items, description FROM Users JOIN Transactions ON Users.number=Transactions.number WHERE status='closed' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", lat - radius, lat + radius, lng - radius, lng + radius)
+						rows, _ := db.Query("SELECT items, description FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE status='closed' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", lat - radius, lat + radius, lng - radius, lng + radius)
 						defer rows.Close()
 
 						for rows.Next() {
@@ -288,20 +288,24 @@ func acceptDonationHandler(w http.ResponseWriter, r *http.Request) {
 		volunteerNumber := r.FormValue("number")
 		id := r.FormValue("id")
 		donationId := r.FormValue("donationId")
+		fmt.Println("\nacceptDonationHandler=>\nid:" + id + "\nnumber:" + volunteerNumber + "\ndonationId:" + donationId)
 
 		if isAuthenticated(id, volunteerNumber) {
-			var donorNumber string
-			row := db.QueryRow("SELECT number FROM Transactions WHERE donationId=?", donationId)
-			err := row.Scan(&donorNumber)
+			if len(donationId) != 0 {
+				var donorNumber string
+				row := db.QueryRow("SELECT fromNumber FROM Transactions WHERE donationId=? AND status='open'", donationId)
+				err := row.Scan(&donorNumber)
 
-			if err == nil {
-				code := createSmsCode("sms")
-				_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'sms')", volunteerNumber, code)
-				_, err2 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'sms')", donorNumber, code)
-				_, err3 := db.Exec("UPDATE Transactions SET status='closed' WHERE donationId=?", donationId)
+				if len(donorNumber) != 0 && err == nil {
+					code := createSmsCode("sms")
+					_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'sms')", volunteerNumber, code)
+					_, err2 := db.Exec("UPDATE Transactions SET toNumber=? WHERE donationId=?", volunteerNumber, donationId)
 
-				if err1 == nil && err2 == nil && err3 == nil {
-					io.WriteString(w, approvalMsg)
+					if err1 == nil && err2 == nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
 				} else {
 					io.WriteString(w, errorMsg)
 				}
@@ -313,6 +317,164 @@ func acceptDonationHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		displayWebPage(w, "accept_donation.html")
+	}
+}
+
+func closeDonationHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		number := r.FormValue("number")
+		donationId := r.FormValue("donationId")
+		code := r.FormValue("code")
+		fmt.Println("\ncloseDonationHandler=>\nid:" + id + "\nnumber:" + number + "\ndonationId:" + donationId + "\ncode:" + code)
+
+		if isAuthenticated(id, number) {
+			if len(donationId) != 0 && len(code) != 0 {
+				_, codeErr := strconv.Atoi(code)
+				var dbCode, volunteerNumber string
+				row := db.QueryRow("SELECT toNumber FROM Transaction WHERE fromNumber=? AND donationId=?", number, donationId)
+				scanErr := row.Scan(&volunteerNumber)
+
+				if len(volunteerNumber) != 0 && scanErr == nil {
+					row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='sms'", number)
+					scanErr := row.Scan(&dbCode)
+
+					if dbCode == code && scanErr == nil && codeErr == nil {
+						_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=? AND type='sms'", volunteerNumber)
+						_, delUserErr := db.Exec("UPDATE Transactions SET status='closed' WHERE donationId=?", donationId)
+
+						if delSmsErr == nil && delUserErr == nil {
+							io.WriteString(w, approvalMsg)
+						} else {
+							io.WriteString(w, errorMsg)
+						}
+					} else {
+						io.WriteString(w, errorMsg)
+					}
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "close_donation.html")
+	}
+}
+
+func listDonationsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		number := r.FormValue("number")
+		id := r.FormValue("id")
+		donationType := r.FormValue("type")
+		fmt.Println("\nacceptedDonationsHandler=>\nid:" + id + "\nnumber:" + number)
+
+		if isAuthenticated(id, number) {
+			if len(donationType) != 0 {
+				if strings.Compare(donationType, "donated") {
+					rows, _ := db.Query("SELECT name, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE toNumber=?")
+					defer rows.Close()
+
+					for rows.Next() {
+						var data [4]string
+						rows.Scan(&data[0], &data[1], &data[2], &data[3])
+						io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "\n")
+					}
+
+					io.WriteString(w, approvalMsg)
+				} else if strings.Compare(donationType, "volunteered") {
+					rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE toNumber=?")
+					defer rows.Close()
+
+					for rows.Next() {
+						var data [7]string
+						rows.Scan(&data[0], &data[1], &data[2], &data[3], &data[4], &data[5], &data[6])
+						io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + "," + data[6] + "\n")
+					}
+
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "list_donations.html")
+	}
+}
+
+func cancelDonationHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		number := r.FormValue("number")
+		id := r.FormValue("id")
+		donationId := r.FormValue("donationId")
+		fmt.Println("\ncancelDonationHandler=>\nid:" + id + "\nnumber:" + number + "\ndonationId:" + donationId)
+
+		if isAuthenticated(id, number) {
+			if len(donationId) != 0 {
+				var donorNumber, volunteerNumber string
+				row := db.QueryRow("SELECT fromNumber, toNumber FROM Transactions WHERE donationId=? AND status='closed'", donationId)
+				err := row.Scan(&donorNumber, &volunteerNumber)
+
+				if strings.Compare(donorNumber, number) == 0 && len(volunteerNumber) != 0 && err == nil {
+					_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'cancel')", volunteerNumber, donorNumber)
+					_, err2 := db.Exec("DELETE FROM Transactions WHERE donationId=?", donationId)
+
+					if err1 == nil && err2 == nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
+				} else if strings.Compare(volunteerNumber, number) == 0 && len(donorNumber) != 0 && err == nil {
+					_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'cancel')", donorNumber, volunteerNumber)
+					_, err2 := db.Exec("DELETE FROM Transactions WHERE donationId=?", donationId)
+
+					if err1 == nil && err2 == nil {
+						io.WriteString(w, approvalMsg)
+					} else {
+						io.WriteString(w, errorMsg)
+					}
+				} else {
+					io.WriteString(w, errorMsg)
+				}
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "cancel_donation.html")
+	}
+}
+
+func pendingSmsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		number := r.FormValue("number")
+		id := r.FormValue("id")
+		fmt.Println("\npendingSmsHandler=>\nid:" + id + "\nnumber:" + number)
+
+		if isAuthenticated(id, number) {
+			rows, _ := db.Query("SELECT number, code, type FROM SmsRequest WHERE isCodeSent='n'")
+			defer rows.Close()
+
+			for rows.Next() {
+				var data [3]string
+				rows.Scan(&data[0], &data[1], &data[2])
+				io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "\n")
+			}
+
+			io.WriteString(w, approvalMsg)
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "pending_sms.html")
 	}
 }
 
@@ -329,6 +491,10 @@ func main() {
 		http.HandleFunc("/donate", donateHandler)
 		http.HandleFunc("/recent_history", recentHistoryHandler)
 		http.HandleFunc("/accept_donation", acceptDonationHandler)
+		http.HandleFunc("/close_donation", closeDonationHandler)
+		http.HandleFunc("/list_donations", listDonationsHandler)
+		http.HandleFunc("/cancel_donation", cancelDonationHandler)
+		http.HandleFunc("/pending_sms", pendingSmsHandler)
 		http.ListenAndServe(":8000", nil)
 	} else {
 		panic(dbErr)

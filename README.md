@@ -13,14 +13,15 @@ Golang server implementation for https://github.com/RahulSriram/Care
 ###Transactions
 `mysql> desc Transactions;`
 
-| Field         | Type        | Null | Key | Default | Extra |
-|:-------------:|:-----------:|:----:|:---:|:-------:|:-----:|
-| donationId    | varchar(40) | NO   | PRI | NULL    |       |
-| timestamp     | varchar(19) | NO   |     | NULL    |       |
-| number        | varchar(14) | NO   |     | NULL    |       |
-| items         | text        | NO   |     | NULL    |       |
-| status        | text        | NO   |     | NULL    |       |
-| description   | text        | NO   |     | NULL    |       |
+| Field       | Type        | Null | Key | Default | Extra |
+|:-----------:|:-----------:|:----:|:---:|:-------:|:-----:|
+| donationId  | varchar(40) | NO   | PRI | NULL    |       |
+| timestamp   | varchar(19) | NO   |     | NULL    |       |
+| fromNumber  | varchar(14) | NO   |     | NULL    |       |
+| toNumber    | varchar(14) | NO   |     | 0       |       |
+| items       | text        | NO   |     | NULL    |       |
+| status      | text        | NO   |     | NULL    |       |
+| description | text        | NO   |     | NULL    |       |
 
 ###SmsRequest
 `mysql> desc SmsRequest;`
@@ -28,8 +29,8 @@ Golang server implementation for https://github.com/RahulSriram/Care
 | Field      | Type        | Null | Key | Default | Extra |
 |:----------:|:-----------:|:----:|:---:|:-------:|:-----:|
 | number     | varchar(14) | NO   |     | NULL    |       |
-| code       | varchar(6)  | NO   |     | NULL    |       |
-| type       | varchar(3)  | NO   |     | NULL    |       |
+| code       | text        | NO   |     | NULL    |       |
+| type       | varchar(6)  | NO   |     | NULL    |       |
 | isCodeSent | varchar(1)  | NO   |     | n       |       |
 
 ###Users
