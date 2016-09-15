@@ -197,7 +197,7 @@ func donateHandler(w http.ResponseWriter, r *http.Request) {
 					err := row.Scan(&timestamp)
 
 					if err == nil {
-						_, err1 := db.Exec("INSERT INTO Transactions(donationId, timestamp, fromNumber, items, status, description) VALUES(" + createDonationCode(timestamp + number) + ", " + timestamp + ", ?, ?, 'open', ?)", number, items, description)
+						_, err1 := db.Exec("INSERT INTO Transactions(donationId, timestamp, fromNumber, items, status, description) VALUES(?, ?, ?, ?, 'open', ?)", createDonationCode(timestamp + number),timestamp, number, items, description)
 						_, err2 := db.Exec("UPDATE Users SET latitude=?, longitude=? WHERE id=? AND number=?", lat, lng, id, number)
 
 						if err1 == nil && err2 == nil {
@@ -370,12 +370,12 @@ func listDonationsHandler(w http.ResponseWriter, r *http.Request) {
 		number := r.FormValue("number")
 		id := r.FormValue("id")
 		donationType := r.FormValue("type")
-		fmt.Println("\nacceptedDonationsHandler=>\nid:" + id + "\nnumber:" + number)
+		fmt.Println("\nlistDonationsHandler=>\nid:" + id + "\nnumber:" + number + "\ntype:" + donationType)
 
 		if isAuthenticated(id, number) {
 			if len(donationType) != 0 {
-				if strings.Compare(donationType, "donated") {
-					rows, _ := db.Query("SELECT name, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE toNumber=?")
+				if strings.Compare(donationType, "donated") == 0 {
+					rows, _ := db.Query("SELECT name, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE fromNumber=?", number)
 					defer rows.Close()
 
 					for rows.Next() {
@@ -385,8 +385,8 @@ func listDonationsHandler(w http.ResponseWriter, r *http.Request) {
 					}
 
 					io.WriteString(w, approvalMsg)
-				} else if strings.Compare(donationType, "volunteered") {
-					rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE toNumber=?")
+				} else if strings.Compare(donationType, "volunteered") == 0 {
+					rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE toNumber=?", number)
 					defer rows.Close()
 
 					for rows.Next() {

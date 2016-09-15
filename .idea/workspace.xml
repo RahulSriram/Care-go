@@ -27,8 +27,8 @@
       <file leaf-file-name="server.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="322" column="66" selection-start-line="322" selection-start-column="66" selection-end-line="322" selection-end-column="66" />
+            <state relative-caret-position="1044">
+              <caret line="500" column="12" selection-start-line="500" selection-start-column="12" selection-end-line="500" selection-end-column="12" />
               <folding>
                 <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
                 <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
@@ -36,7 +36,6 @@
                 <element signature="n#!!block;n#registerHandler#0" expanded="false" />
                 <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
                 <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-                <element signature="n#!!block;n#donateHandler#0" expanded="false" />
                 <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
                 <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
                 <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -55,7 +54,7 @@
           </provider>
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="447">
+              <first_editor relative-caret-position="540">
                 <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
                 <folding />
               </first_editor>
@@ -67,8 +66,8 @@
       <file leaf-file-name="crypt.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crypt.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
+            <state relative-caret-position="280">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
               </folding>
@@ -233,7 +232,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -254,12 +252,13 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="configurable.Global.libraries.is.expanded" value="true" />
     <property name="configurable.Project.libraries.is.expanded" value="true" />
@@ -614,12 +613,19 @@
       <option name="project" value="LOCAL" />
       <updated>1473884509899</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bug fixes">
+      <created>1473914650522</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1473914650522</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -627,7 +633,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34343433" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -689,7 +695,8 @@
     <MESSAGE value="fixed coordinates to distance calculation" />
     <MESSAGE value="added accepting donations module" />
     <MESSAGE value="added accept, cancel, closing donations" />
-    <option name="LAST_COMMIT_MESSAGE" value="added accept, cancel, closing donations" />
+    <MESSAGE value="bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,6 +711,51 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8226">
+          <caret line="457" column="63" selection-start-line="457" selection-start-column="63" selection-end-line="457" selection-end-column="63" />
+          <folding>
+            <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
+            <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
+            <element signature="n#!!block;n#loginHandler#0" expanded="false" />
+            <element signature="n#!!block;n#registerHandler#0" expanded="false" />
+            <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
+            <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#listDonationsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#cancelDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#pendingSmsHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="540">
+            <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.go">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
@@ -713,7 +765,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -759,7 +810,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -805,7 +855,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -851,7 +900,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -897,7 +945,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -919,7 +966,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -954,7 +1000,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -976,7 +1021,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -998,7 +1042,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1020,7 +1063,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1042,7 +1084,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1078,7 +1119,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1135,7 +1175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,21 +1186,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crypt.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
-          <folding>
-            <element signature="e#14#115#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Care-go.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1176,7 +1204,7 @@
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="447">
+          <first_editor relative-caret-position="540">
             <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
             <folding />
           </first_editor>
@@ -1184,10 +1212,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/crypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="322" column="66" selection-start-line="322" selection-start-column="66" selection-end-line="322" selection-end-column="66" />
+        <state relative-caret-position="1044">
+          <caret line="500" column="12" selection-start-line="500" selection-start-column="12" selection-end-line="500" selection-end-column="12" />
           <folding>
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
@@ -1195,7 +1233,6 @@
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
-            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
