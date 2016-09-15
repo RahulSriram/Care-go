@@ -81,7 +81,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 				var dbCode string
 				scanErr := row.Scan(&dbCode)
 
-				if dbCode == userCode && scanErr == nil && numErr == nil && codeErr == nil {
+				if strings.Compare(dbCode, userCode) == 0 && scanErr == nil && numErr == nil && codeErr == nil {
 					_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=? AND type='otp'", number)
 					_, delUserErr := db.Exec("DELETE FROM Users WHERE number=?", number)
 					_, insErr := db.Exec("INSERT INTO Users(id, number) VALUES(?, ?)", id, number)
@@ -332,15 +332,15 @@ func closeDonationHandler(w http.ResponseWriter, r *http.Request) {
 			if len(donationId) != 0 && len(code) != 0 {
 				_, codeErr := strconv.Atoi(code)
 				var dbCode, volunteerNumber string
-				row := db.QueryRow("SELECT toNumber FROM Transaction WHERE fromNumber=? AND donationId=?", number, donationId)
+				row := db.QueryRow("SELECT toNumber FROM Transaction WHERE donationId=?", donationId)
 				scanErr := row.Scan(&volunteerNumber)
 
 				if len(volunteerNumber) != 0 && scanErr == nil {
-					row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='sms'", number)
+					row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='sms' AND code=?", number, code)
 					scanErr := row.Scan(&dbCode)
 
-					if dbCode == code && scanErr == nil && codeErr == nil {
-						_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=? AND type='sms'", volunteerNumber)
+					if len(dbCode) != 0 && scanErr == nil && codeErr == nil {
+						_, delSmsErr := db.Exec("DELETE FROM SmsRequest WHERE number=? AND type='sms' AND code=?", volunteerNumber, code)
 						_, delUserErr := db.Exec("UPDATE Transactions SET status='closed' WHERE donationId=?", donationId)
 
 						if delSmsErr == nil && delUserErr == nil {
@@ -351,6 +351,8 @@ func closeDonationHandler(w http.ResponseWriter, r *http.Request) {
 					} else {
 						io.WriteString(w, errorMsg)
 					}
+				} else {
+					io.WriteString(w, errorMsg)
 				}
 			} else {
 				io.WriteString(w, errorMsg)
