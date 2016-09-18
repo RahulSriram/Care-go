@@ -1,8 +1,36 @@
 # Care-go
-Golang server implementation for https://github.com/RahulSriram/Care
+Golang server implementation for <a href="https://github.com/RahulSriram/Care">Care</a>
+
+##Installation
+
+###Dependencies
+`go get github.com/go-sql-driver/mysql`
+
+###Setting up
+`go get github.com/RahulSriram/Care-go`
+
+Ignore errors about `createSmsCode()` and `createDonationCode()`
+
+After downloading, uncomment `createSmsCode()` and `createDonationCode()` in `server.go` and add your own random unique number generation algorithms in them
+
+if you want something quick for testing, try this
+
+```
+import "time"
+
+func createSmsCode(msgType string) string {
+	return time.Now().Unix()
+}
+
+func createDonationCode(input string) string {
+	return input
+}
+```
 
 ##Database structure
-`mysql> show tables`
+`mysql> use Care;`
+
+`mysql> show tables;`
 
 | Tables_in_Care |
 |:--------------:|
