@@ -35,6 +35,7 @@ func createDonationCode(input string) string {
 | Tables_in_Care |
 |:--------------:|
 | SmsRequest     |
+| SmsSenders     |
 | Transactions   |
 | Users          |
 
@@ -71,3 +72,11 @@ func createDonationCode(input string) string {
 | name      | text        | NO   |     | NULL    |       |
 | latitude  | float(12,8) | NO   |     | NULL    |       |
 | longitude | float(12,8) | NO   |     | NULL    |       |
+
+###SmsSenders
+`mysql> desc SmsSenders;`
+
+| Field     | Type        | Null | Key | Default | Extra |
+|:---------:|:-----------:|:----:|:---:|:-------:|:-----:|
+| id        | text        | NO   |     | NULL    |       |
+| number    | varchar(14) | NO   | PRI | NULL    |       |
