@@ -245,24 +245,13 @@ func recentHistoryHandler(w http.ResponseWriter, r *http.Request) {
 					maxLng := lng + ((1 / (111.3 * math.Cos(lat))) * radius)
 
 					if strings.Compare(status, "open") == 0 {
-						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE status='open' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
+						rows, _ := db.Query("SELECT Users.number, name, latitude, longitude, items, description, donationId FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE status='open' AND toNumber='0' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", minLat, maxLat, minLng, maxLng)
 						defer rows.Close()
 
 						for rows.Next() {
 							var data [7]string
 							rows.Scan(&data[0], &data[1], &data[2], &data[3], &data[4], &data[5], &data[6])
 							io.WriteString(w, data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + "," + data[6] + "\n")
-						}
-
-						io.WriteString(w, approvalMsg)
-					} else if strings.Compare(status, "closed") == 0 {
-						rows, _ := db.Query("SELECT items, description FROM Users JOIN Transactions ON Users.number=Transactions.fromNumber WHERE status='closed' AND latitude BETWEEN ? AND ? AND longitude BETWEEN ? AND ?", lat - radius, lat + radius, lng - radius, lng + radius)
-						defer rows.Close()
-
-						for rows.Next() {
-							var data [2]string
-							rows.Scan(&data[0], &data[1])
-							io.WriteString(w, data[0] + "," + data[1] + "\n")
 						}
 
 						io.WriteString(w, approvalMsg)
@@ -293,7 +282,7 @@ func acceptDonationHandler(w http.ResponseWriter, r *http.Request) {
 		if isAuthenticated(id, volunteerNumber) {
 			if len(donationId) != 0 {
 				var donorNumber string
-				row := db.QueryRow("SELECT fromNumber FROM Transactions WHERE donationId=? AND status='open'", donationId)
+				row := db.QueryRow("SELECT fromNumber FROM Transactions WHERE donationId=? AND status='open' AND toNumber='0'", donationId)
 				err := row.Scan(&donorNumber)
 
 				if len(donorNumber) != 0 && err == nil {
@@ -332,11 +321,11 @@ func closeDonationHandler(w http.ResponseWriter, r *http.Request) {
 			if len(donationId) != 0 && len(code) != 0 {
 				_, codeErr := strconv.Atoi(code)
 				var dbCode, volunteerNumber string
-				row := db.QueryRow("SELECT toNumber FROM Transaction WHERE donationId=?", donationId)
+				row := db.QueryRow("SELECT toNumber FROM Transactions WHERE donationId=?", donationId)
 				scanErr := row.Scan(&volunteerNumber)
 
 				if len(volunteerNumber) != 0 && scanErr == nil {
-					row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='sms' AND code=?", number, code)
+					row := db.QueryRow("SELECT code from SmsRequest WHERE number=? AND isCodeSent='y' AND type='sms' AND code=?", volunteerNumber, code)
 					scanErr := row.Scan(&dbCode)
 
 					if len(dbCode) != 0 && scanErr == nil && codeErr == nil {
@@ -434,7 +423,7 @@ func cancelDonationHandler(w http.ResponseWriter, r *http.Request) {
 					}
 				} else if strings.Compare(volunteerNumber, number) == 0 && len(donorNumber) != 0 && err == nil {
 					_, err1 := db.Exec("INSERT INTO SmsRequest(number, code, type) VALUES(?, ?, 'cancel')", donorNumber, volunteerNumber)
-					_, err2 := db.Exec("DELETE FROM Transactions WHERE donationId=?", donationId)
+					_, err2 := db.Exec("UPDATE Transactions SET toNumber='0' WHERE donationId=?", donationId)
 
 					if err1 == nil && err2 == nil {
 						io.WriteString(w, approvalMsg)

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bacd64ef-765c-4c02-aae6-17b752dd57a4" name="Default" comment="">
+    <list default="true" id="bacd64ef-765c-4c02-aae6-17b752dd57a4" name="Default" comment="bug fixes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/close_donation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.go" afterPath="$PROJECT_DIR$/server.go" />
     </list>
@@ -27,15 +28,17 @@
       <file leaf-file-name="server.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1044">
-              <caret line="500" column="12" selection-start-line="500" selection-start-column="12" selection-end-line="500" selection-end-column="12" />
+            <state relative-caret-position="216">
+              <caret line="446" column="63" selection-start-line="446" selection-start-column="63" selection-end-line="446" selection-end-column="63" />
               <folding>
+                <element signature="e#14#148#0" expanded="true" />
                 <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
                 <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
                 <element signature="n#!!block;n#loginHandler#0" expanded="false" />
                 <element signature="n#!!block;n#registerHandler#0" expanded="false" />
                 <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
                 <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+                <element signature="n#!!block;n#donateHandler#0" expanded="false" />
                 <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
                 <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
                 <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -47,6 +50,26 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="close_donation.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/close_donation.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="accept_donation.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/accept_donation.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider editor-type-id="MarkdownFxPreviewEditor">
@@ -54,8 +77,8 @@
           </provider>
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="540">
-                <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+              <first_editor relative-caret-position="378">
+                <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -66,7 +89,7 @@
       <file leaf-file-name="crypt.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crypt.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
+            <state relative-caret-position="594">
               <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
@@ -105,6 +128,7 @@
         <option value="$PROJECT_DIR$/accept_donation.html" />
         <option value="$PROJECT_DIR$/crypt.go" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/close_donation.html" />
         <option value="$PROJECT_DIR$/server.go" />
       </list>
     </option>
@@ -218,7 +242,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -231,31 +255,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Care-go" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Care-go" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Care-go" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -620,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1473914650522</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="bug fixes">
+      <created>1473950451364</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1473950451364</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -633,12 +640,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34343433" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16033435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16033435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -661,22 +668,22 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34343433" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996634" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19604863" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16033435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39730638" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39730638" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -700,7 +707,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -711,15 +718,174 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8226">
-          <caret line="457" column="63" selection-start-line="457" selection-start-column="63" selection-end-line="457" selection-end-column="63" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
+            <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
+            <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#listDonationsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#cancelDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#pendingSmsHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/close_donation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accept_donation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="378">
+            <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+          <folding>
+            <element signature="e#14#148#0" expanded="true" />
+            <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
+            <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
+            <element signature="n#!!block;n#loginHandler#0" expanded="false" />
+            <element signature="n#!!block;n#registerHandler#0" expanded="false" />
+            <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
+            <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
+            <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#listDonationsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#cancelDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#pendingSmsHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="540">
+            <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#148#0" expanded="true" />
+            <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
+            <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
+            <element signature="n#!!block;n#loginHandler#0" expanded="false" />
+            <element signature="n#!!block;n#registerHandler#0" expanded="false" />
+            <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
+            <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
+            <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#listDonationsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#cancelDonationHandler#0" expanded="false" />
+            <element signature="n#!!block;n#pendingSmsHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="540">
+            <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crypt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8226">
+          <caret line="457" column="63" selection-start-line="457" selection-start-column="63" selection-end-line="457" selection-end-column="63" />
+          <folding>
+            <element signature="e#14#148#0" expanded="true" />
+            <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
+            <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
+            <element signature="n#!!block;n#loginHandler#0" expanded="false" />
+            <element signature="n#!!block;n#registerHandler#0" expanded="false" />
+            <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
+            <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -759,12 +925,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -804,12 +972,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -849,12 +1019,14 @@
         <state relative-caret-position="5202">
           <caret line="289" column="16" selection-start-line="289" selection-start-column="16" selection-end-line="289" selection-end-column="16" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -894,12 +1066,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -939,12 +1113,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -960,12 +1136,14 @@
         <state relative-caret-position="1512">
           <caret line="84" column="56" selection-start-line="84" selection-start-column="56" selection-end-line="84" selection-end-column="56" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -994,12 +1172,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1015,12 +1195,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1036,12 +1218,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1057,12 +1241,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1078,12 +1264,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1113,12 +1301,14 @@
         <state relative-caret-position="216">
           <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
@@ -1171,13 +1361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/accept_donation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1193,28 +1376,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="540">
-            <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crypt.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
+        <state relative-caret-position="594">
           <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
             <element signature="e#14#115#0" expanded="true" />
@@ -1222,17 +1386,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="378">
+            <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accept_donation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/close_donation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="500" column="12" selection-start-line="500" selection-start-column="12" selection-end-line="500" selection-end-column="12" />
+        <state relative-caret-position="216">
+          <caret line="446" column="63" selection-start-line="446" selection-start-column="63" selection-end-line="446" selection-end-column="63" />
           <folding>
+            <element signature="e#14#148#0" expanded="true" />
             <element signature="n#!!block;n#displayWebPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#loginHandler#0" expanded="false" />
             <element signature="n#!!block;n#registerHandler#0" expanded="false" />
             <element signature="n#!!block;n#requestSmsHandler#0" expanded="false" />
             <element signature="n#!!block;n#setNameHandler#0" expanded="false" />
+            <element signature="n#!!block;n#donateHandler#0" expanded="false" />
             <element signature="n#!!block;n#recentHistoryHandler#0" expanded="false" />
             <element signature="n#!!block;n#acceptDonationHandler#0" expanded="false" />
             <element signature="n#!!block;n#closeDonationHandler#0" expanded="false" />
