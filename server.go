@@ -484,6 +484,35 @@ func pendingSmsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func updateSmsHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		number := r.FormValue("number")
+		id := r.FormValue("id")
+		toNumber := r.FormValue("toNumber")
+		code := r.FormValue("code")
+		msgType := r.FormValue("type")
+		fmt.Println("\nupdateSmsHandler=>\nid:" + id + "\nnumber:" + number + "\ntoNumber:" + toNumber + "\ncode:" + code + "\ntype:" + msgType)
+
+		if isSmsSender(id, number) {
+			if len(toNumber) != 0 && len(code) != 0 && len(type) != 0 {
+				_, err := db.Exec("UPDATE SmsRequest SET isCodeSent='y' WHERE isCodeSent='n' AND number=? AND code=? AND type=?", toNumber, code, msgType)
+
+				if err == nil {
+					io.WriteString(w, approvalMsg)
+				} else {
+					io.WriteString(w, errorMsg)
+				}	
+			} else {
+				io.WriteString(w, errorMsg)
+			}
+		} else {
+			io.WriteString(w, authFailMsg)
+		}
+	} else {
+		displayWebPage(w, "update_sms.html")
+	}
+}
+
 func main() {
 	var dbErr error
 	db, dbErr = sql.Open("mysql", user + ":" + password + "@/" + database)
@@ -501,6 +530,7 @@ func main() {
 		http.HandleFunc("/list_donations", listDonationsHandler)
 		http.HandleFunc("/cancel_donation", cancelDonationHandler)
 		http.HandleFunc("/pending_sms", pendingSmsHandler)
+		http.HandleFunc("/update_sms", updateSmsHandler)
 		http.ListenAndServe(":8000", nil)
 	} else {
 		panic(dbErr)
