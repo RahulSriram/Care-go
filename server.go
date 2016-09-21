@@ -50,6 +50,21 @@ func isAuthenticated(id string, number string) bool {
 	}
 }
 
+func isSmsSender(id string, number string) bool {
+	if len(number) != 0 && len(id) != 0 {
+		row := db.QueryRow("SELECT id, number from SmsSenders where id=? AND number=?", id, number)
+		err := row.Scan(&id, &number)
+
+		if len(id) != 0 && len(number) != 0 && err == nil {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
+}
+
 func loginHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		number := r.FormValue("number")
@@ -450,7 +465,7 @@ func pendingSmsHandler(w http.ResponseWriter, r *http.Request) {
 		id := r.FormValue("id")
 		fmt.Println("\npendingSmsHandler=>\nid:" + id + "\nnumber:" + number)
 
-		if isAuthenticated(id, number) {
+		if isSmsSender(id, number) {
 			rows, _ := db.Query("SELECT number, code, type FROM SmsRequest WHERE isCodeSent='n'")
 			defer rows.Close()
 
