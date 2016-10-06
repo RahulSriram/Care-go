@@ -494,7 +494,7 @@ func updateSmsHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("\nupdateSmsHandler=>\nid:" + id + "\nnumber:" + number + "\ntoNumber:" + toNumber + "\ncode:" + code + "\ntype:" + msgType)
 
 		if isSmsSender(id, number) {
-			if len(toNumber) != 0 && len(code) != 0 && len(type) != 0 {
+			if len(toNumber) != 0 && len(code) != 0 && len(msgType) != 0 {
 				_, err := db.Exec("UPDATE SmsRequest SET isCodeSent='y' WHERE isCodeSent='n' AND number=? AND code=? AND type=?", toNumber, code, msgType)
 
 				if err == nil {
