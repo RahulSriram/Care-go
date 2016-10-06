@@ -1,2 +1,4 @@
 crypt.go
 server
+.idea/
+*.iml
